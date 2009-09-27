@@ -5,6 +5,12 @@ import  pygame
 import  math
 from    pygame.locals   import *
 
+# TODO
+#
+# * Ellipses
+# * Arcs
+# * Polygons
+
 # Screen size
 WIDTH  = 640
 HEIGHT = 480
