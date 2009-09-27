@@ -95,6 +95,21 @@ def circle(color, center, radius, width=0):
        if width is 0 or not given, fill in the circle.'''
     pygame.draw.circle(screen(), color, center, radius, width)
 
+def rectangle(color, rect, width=0, **kwargs):
+    '''Draws a rectangle.
+       color, rect, [width], [center=False]
+       The optional width specifies the outline width. The rectangle is filled
+       if this is 0. The keyword args may contain "center", which instructs
+       pypixel to use the coordinate specified for the rectangle to be the
+       center instead of the top left corner. The rect itself is a pair of
+       pairs, specifiying a location and dimensions.'''
+    if "center" in kwargs and kwargs["center"]:
+        rect2        = pygame.Rect(*rect)
+        rect2.center = rect[0]
+        pygame.draw.rect(screen(), color, rect2, width)
+    else:
+        pygame.draw.rect(screen(), color, pygame.Rect(*rect), width)
+
 def random(x=None, y=None):
     if x is None and y is None:
         return randy.random()
