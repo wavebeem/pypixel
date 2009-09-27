@@ -54,7 +54,7 @@ def rainbow_random_circles():
     while True:
         x  = random(WIDTH)
         y  = random(HEIGHT)
-        r  = random(1, 100)
+        r  = random(50, 100)
         h += 1
         h %= 360
         s  = 100
@@ -62,5 +62,41 @@ def rainbow_random_circles():
         c  = hsv((h, s, v))
         circle(c, (x, y), r)
         update()
+
+def rotating_line():
+    angle   = 0
+    x1      = WIDTH  / 2
+    y1      = HEIGHT / 2
+    radius  = HEIGHT
+    red     = rgb((255, 0, 0))
+    black   = rgb((0,   0, 0))
+    while True:
+        x2 = radius * cos(angle) + x1
+        y2 = radius * sin(angle) + y1
+        line(red, (x1, y1), (x2, y2))
+        update()
+        line(black, (x1, y1), (x2, y2))
+
+        angle += 1
+
+def rotating_lines():
+    angle   = 0
+    x1      = WIDTH  / 2
+    y1      = HEIGHT / 2
+    radius  = HEIGHT
+    while True:
+        x2 = radius * cos(angle) + x1
+        y2 = radius * sin(angle) + y1
+        line(RED, (x1, y1), (x2, y2))
+        update()
+        line(BLACK, (x1, y1), (x2, y2))
+
+        x2 = radius * cos(-angle) + x1
+        y2 = radius * sin(-angle) + y1
+        line(GREEN, (x1, y1), (x2, y2))
+        update()
+        line(BLACK, (x1, y1), (x2, y2))
+
+        angle += 1
 
 run(rainbow_random_circles)

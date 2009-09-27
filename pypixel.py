@@ -1,15 +1,8 @@
 #!/usr/bin/python
-#
-# TODO
-# Thread pypixel so that the end user doesn't have to insert check()
-# everywhere...
-#
-# TODO
-# Write color wrapper for HSVA, HSLA, RGBA
-#
 
 import  random  as randy
 import  pygame
+import  math
 from    pygame.locals   import *
 
 # Screen size
@@ -22,22 +15,10 @@ def hsv(hsv):
     c.hsva = hsv + (100,) 
     return c
 
-def hsva(hsv):
-    '''Create a new color from an HSVA quadruplet'''
-    c = pygame.Color(0)
-    c.hsva = hsva
-    return c
-
 def hsl(hsl):
     '''Create a new color from an HSL triplet'''
     c = pygame.Color(0)
     c.hsla = hsl + (100,) 
-    return c
-
-def hsla(hsl):
-    '''Create a new color from an HSLA quadruplet'''
-    c = pygame.Color(0)
-    c.hsla = hsla
     return c
 
 def rgb(rgb):
@@ -45,24 +26,39 @@ def rgb(rgb):
     c = pygame.Color(*rgb)
     return c
 
-def rgba(rgba):
-    '''Create a new color from an RGBA quadruplet'''
-    c = pygame.Color(*rgba)
+def hex(hexcode):
+    r = int(hexcode[0:2], 16)
+    g = int(hexcode[2:4], 16)
+    b = int(hexcode[4:6], 16)
+    c = pygame.Color(r, g, b)
     return c
+
+# Basic color palette for simple drawing
+RED     = hex("FF0000")
+ORANGE  = hex("FFA500")
+YELLOW  = hex("FFFF00")
+GREEN   = hex("00FF00")
+BLUE    = hex("0000FF")
+INDIGO  = hex("A020F0")
+VIOLET  = hex("EE82EE")
+
+PINK    = hex("FFC0CB")
+
+BLACK   = hex("000000")
+GREY    = hex("888888")
+GRAY    = hex("888888")
+WHITE   = hex("FFFFFF")
 
 def check():
     '''Check to see if the user wants to quit.
        That is, if they pressed Q, Esc, or tried to close the window.'''
     for event in pygame.event.get():
         if event.type == QUIT:
-            print "Got signal to quit"
             exit()
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                print "Got signal to quit"
                 exit()
             elif event.key == K_q:
-                print "Got signal to quit"
                 exit()
 
 def run(main):
@@ -100,3 +96,9 @@ def random(x=None, y=None):
         return randy.randrange(0, x)
     else:
         return randy.randrange(x, y)
+
+# Most people can think easier in degrees than radians. These functions allow
+# them to do so.
+sin = lambda x: math.sin(math.radians(x))
+cos = lambda x: math.cos(math.radians(x))
+tan = lambda x: math.tan(math.radians(x))
