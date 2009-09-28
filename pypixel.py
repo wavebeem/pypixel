@@ -10,6 +10,7 @@ from    pygame.locals   import *
 # * Ellipses
 # * Arcs
 # * Polygons
+# * Pixels
 
 # Screen size
 WIDTH  = 640
