@@ -13,6 +13,7 @@ from    pygame.locals   import *
 #   * Polygons
 #   * Pixels
 # * Add support for toggling fullscreen
+# * Rename main window to "pypixel application" or something
 
 # Screen size
 WIDTH  = 640
