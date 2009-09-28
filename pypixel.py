@@ -7,10 +7,12 @@ from    pygame.locals   import *
 
 # TODO
 #
-# * Ellipses
-# * Arcs
-# * Polygons
-# * Pixels
+# * Add the following drawing mechanisms
+#   * Ellipses
+#   * Arcs
+#   * Polygons
+#   * Pixels
+# * Add support for toggling fullscreen
 
 # Screen size
 WIDTH  = 640
