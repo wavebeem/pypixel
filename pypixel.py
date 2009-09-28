@@ -91,6 +91,8 @@ def check():
                 exit()
             elif event.key == pygame.locals.K_f:
                 _toggle_full_screen()
+            elif event.key == pygame.locals.K_v:
+                _debug(pygame.display.Info())
 
 def show():
     '''Set up the basic pypixel environment and run the main function'''
@@ -147,6 +149,23 @@ def rectangle(color, rect, width=0, **kwargs):
         pygame.draw.rect(_screen(), color, rect2, width)
     else:
         pygame.draw.rect(_screen(), color, pygame.Rect(*rect), width)
+
+def ellipse(color, rect, width=0, **kwargs):
+    '''\
+    Draws an ellipse.
+    color, rect, [width], [center=False]
+    The optional width specifies the outline width. The rectangle is filled
+    if this is 0. The keyword args may contain "center", which instructs
+    pypixel to use the coordinate specified for the rectangle to be the
+    center instead of the top left corner. The rect itself is a pair of
+    pairs, specifiying a location and dimensions.
+    '''
+    if "center" in kwargs and kwargs["center"]:
+        rect2        = pygame.Rect(*rect)
+        rect2.center = rect[0]
+        pygame.draw.ellipse(_screen(), color, rect2, width)
+    else:
+        pygame.draw.ellipse(_screen(), color, pygame.Rect(*rect), width)
 
 def random(x=None, y=None):
     '''\
