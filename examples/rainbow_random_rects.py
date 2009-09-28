@@ -5,8 +5,8 @@ from pypixel import *
 def rainbow_random_rects():
     hue = 0
     while True:
-        x  = WIDTH  / 4
-        y  = HEIGHT / 4
+        x  = WIDTH  / 2
+        y  = HEIGHT / 2
         w  = random(WIDTH)  / 2
         h  = random(HEIGHT) / 2
         hue += 1
@@ -15,7 +15,7 @@ def rainbow_random_rects():
         val  = 100
         col  = hsv((hue, sat, val))
         rect = ((x, y), (w, h))
-        rectangle(col, rect)
+        rectangle(col, rect, center=True)
         update()
 
 run(rainbow_random_rects)
