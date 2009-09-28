@@ -14,6 +14,7 @@ from    pygame.locals   import *
 #   * Pixels
 # * Add support for toggling fullscreen
 # * Rename main window to "pypixel application" or something
+# * Add some kind of pause when the program is done
 
 # Screen size
 WIDTH  = 640
