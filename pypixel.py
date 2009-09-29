@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import random  as randy
+import random as randy
 import pygame
 import pygame.locals
 import math
@@ -62,13 +62,19 @@ def rgb(rgb):
     return c
 
 def hex(hexcode):
+    '''\
+    Create a new color from a six digit hexadecimal number, as in HTML (but
+    but without the the # sign). The format is "RRGGBB" where RR, GG, and
+    BB are two digit hexadecimal digits specifying the color values for
+    red, green and blue respectively.
+    '''
     r = int(hexcode[0:2], 16)
     g = int(hexcode[2:4], 16)
     b = int(hexcode[4:6], 16)
     c = pygame.Color(r, g, b)
     return c
 
-# Basic color palette for simple drawing
+# {{{ Basic color palette for simple drawing
 RED     = hex("FF0000")
 ORANGE  = hex("FFA500")
 YELLOW  = hex("FFFF00")
@@ -76,18 +82,20 @@ GREEN   = hex("00FF00")
 BLUE    = hex("0000FF")
 INDIGO  = hex("A020F0")
 VIOLET  = hex("EE82EE")
-
+#######################
 PINK    = hex("FFC0CB")
-
+#######################
 BLACK   = hex("000000")
 GREY    = hex("888888")
 GRAY    = hex("888888")
 WHITE   = hex("FFFFFF")
+# }}}
 
 def check():
     '''\
     Check to see if the user wants to quit.
     That is, if they pressed Q, Esc, or tried to close the window.
+    Also checks to see if the user pressed F for fullscreen.
     '''
     for event in pygame.event.get():
         if event.type == pygame.locals.QUIT:
@@ -129,12 +137,11 @@ def update():
     check()
     _CLOCK.tick(_FPS)
     if _SHOW_FPS:
-        _debug_noln(":%4.2f\r" % _CLOCK.get_fps())
+        _debug_noln("> %4.2f\r" % _CLOCK.get_fps())
 
 def line(color, start, end, width=1):
     '''\
     Draw a line on the _screen.
-    color, start, end, [width]
     If width is not given, make it 1px wide.
     '''
     pygame.draw.line(_screen(), color, start, end, width)
@@ -142,7 +149,6 @@ def line(color, start, end, width=1):
 def circle(color, center, radius, width=0):
     '''\
     Draw a circle on the _screen.
-    color, center, radius, [width]
     if width is 0 or not given, fill in the circle.
     '''
     pygame.draw.circle(_screen(), color, center, radius, width)
@@ -150,12 +156,11 @@ def circle(color, center, radius, width=0):
 def rectangle(color, rect, width=0, **kwargs):
     '''\
     Draws a rectangle.
-    color, rect, [width], [center=False]
     The optional width specifies the outline width. The rectangle is filled
-    if this is 0. The keyword args may contain "center", which instructs
-    pypixel to use the coordinate specified for the rectangle to be the
-    center instead of the top left corner. The rect itself is a pair of
-    pairs, specifiying a location and dimensions.
+    if this is 0. The keyword args may contain "center", which is a boolean
+    that instructs pypixel to use the coordinate specified for the rectangle
+    to be the center instead of the top left corner. The rect itself is a pair
+    of pairs, specifiying a location and dimensions.
     '''
     if "center" in kwargs and kwargs["center"]:
         rect2        = pygame.Rect(*rect)
@@ -167,12 +172,11 @@ def rectangle(color, rect, width=0, **kwargs):
 def ellipse(color, rect, width=0, **kwargs):
     '''\
     Draws an ellipse.
-    color, rect, [width], [center=False]
     The optional width specifies the outline width. The rectangle is filled
-    if this is 0. The keyword args may contain "center", which instructs
-    pypixel to use the coordinate specified for the rectangle to be the
-    center instead of the top left corner. The rect itself is a pair of
-    pairs, specifiying a location and dimensions.
+    if this is 0. The keyword args may contain "center", which is a boolean
+    that instructs pypixel to use the coordinate specified for the rectangle
+    to be the center instead of the top left corner. The rect itself is a pair
+    of pairs, specifiying a location and dimensions.
     '''
     if "center" in kwargs and kwargs["center"]:
         rect2        = pygame.Rect(*rect)
@@ -196,6 +200,10 @@ def random(x=None, y=None):
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
-sin = lambda x: math.sin(math.radians(x))
-cos = lambda x: math.cos(math.radians(x))
-tan = lambda x: math.tan(math.radians(x))
+def sin(x): return math.sin(math.radians(x))
+def cos(x): return math.cos(math.radians(x))
+def tan(x): return math.tan(math.radians(x))
+
+sin.__doc__ = '''Return the sine of x, in degrees'''
+cos.__doc__ = '''Return the cosine of x, in degrees'''
+tan.__doc__ = '''Return the tangent of x, in degrees'''
