@@ -4,6 +4,7 @@ import random as randy
 import pygame
 import pygame.locals
 import math
+import sys
 
 # TODO
 #
@@ -39,7 +40,6 @@ def _debug(*xs):
         print " ".join([str(x) for x in xs])
 
 def _debug_noln(*xs):
-    import sys
     if __debug__:
         print " ".join([str(x) for x in xs]),
         sys.stdout.flush()
