@@ -19,22 +19,31 @@ import math
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
 
+_CLOCK = None
+_FPS   = 60
+
+_SHOW_FPS = False
+
 _WINDOW_OPTS =        \
     pygame.DOUBLEBUF | \
     pygame.HWSURFACE    \
-#   pygame.OPENGL
 
 _FULLSCREEN_OPTS =     \
     pygame.DOUBLEBUF  | \
     pygame.HWSURFACE  |  \
     pygame.FULLSCREEN     \
-#   pygame.OPENGL
 
 _full_screen = False
 
 def _debug(*xs):
     if __debug__:
         print " ".join([str(x) for x in xs])
+
+def _debug_noln(*xs):
+    import sys
+    if __debug__:
+        print " ".join([str(x) for x in xs]),
+        sys.stdout.flush()
 
 def hsv(hsv):
     '''Create a new color from an HSV triplet'''
@@ -92,14 +101,17 @@ def check():
             elif event.key == pygame.locals.K_f:
                 _toggle_full_screen()
             elif event.key == pygame.locals.K_v:
-                _debug(pygame.display.Info())
+                global _SHOW_FPS
+                _SHOW_FPS = not _SHOW_FPS
 
 def show():
     '''Set up the basic pypixel environment and run the main function'''
+    global _CLOCK
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
     pygame.mouse.set_visible(False)
     pygame.display.set_caption("PyPixel")
+    _CLOCK = pygame.time.Clock()
 
 def _screen():
     return pygame.display.get_surface()
@@ -116,6 +128,9 @@ def update():
     '''Update the display and check if the user wants to quit'''
     pygame.display.flip()
     check()
+    _CLOCK.tick(_FPS)
+    if _SHOW_FPS:
+        _debug_noln(":%4.2f\r" % _CLOCK.get_fps())
 
 def line(color, start, end, width=1):
     '''\
