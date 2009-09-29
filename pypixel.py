@@ -12,8 +12,7 @@ import math
 #   * Arcs
 #   * Polygons
 #   * Pixels
-# * Add support for toggling full_screen
-# * Rename main window to "pypixel application" or something
+# * Add generic clear screen
 # * Add some kind of pause when the program is done
 
 # Screen size
