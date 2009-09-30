@@ -9,18 +9,24 @@ y = HEIGHT / 2
 base_size = 25
 w = base_size
 h = base_size
-move_scale = 5
-size_scale = 5
+sat = 0
+
+def porm():
+    if random(2) == 0:
+        return -1
+    else:
+        return +1
+
 while True:
-    x += move_scale * (-1 if random(2) == 0 else +1)
-    y += move_scale * (-1 if random(2) == 0 else +1)
+    x += porm()
+    y += porm()
 
     x %= WIDTH
     y %= HEIGHT
 
 
-    w += size_scale * (-1 if random(2) == 0 else +1)
-    h += size_scale * (-1 if random(2) == 0 else +1)
+    w += porm()
+    h += porm()
 
     w %= WIDTH
     h %= HEIGHT
@@ -28,7 +34,10 @@ while True:
     if w < base_size: w += base_size
     if h < base_size: h += base_size
 
-    color = hsv((random(360), 100, 100))
+    sat += 1
+    sat %= 100
+
+    color = hsv((0, sat, 100))
     ellipse(color, ((x, y), (w, h)), center=True)
     update()
     ellipse(BLACK, ((x, y), (w, h)), center=True)

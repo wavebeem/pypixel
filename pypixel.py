@@ -9,7 +9,6 @@ import sys
 # TODO
 #
 # * Add the following drawing mechanisms
-#   * Ellipses
 #   * Arcs
 #   * Polygons
 #   * Pixels
