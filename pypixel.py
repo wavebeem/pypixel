@@ -8,12 +8,8 @@ import sys
 
 # TODO
 #
-# * Add the following drawing mechanisms
-#   * Arcs
-#   * Polygons
-#   * Pixels
-# * Add generic clear screen
 # * Add some kind of pause when the program is done
+#   * Add some kind of Clock ticking loop to at_exit or something like that
 
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
@@ -183,6 +179,32 @@ def ellipse(color, rect, width=0, **kwargs):
         pygame.draw.ellipse(_screen(), color, rect2, width)
     else:
         pygame.draw.ellipse(_screen(), color, pygame.Rect(*rect), width)
+
+def polygon(color, points, width=0):
+    '''\
+    Draws a polygon with the given list of points, and the specified line
+    width (by default, with 0, it is filled in).
+    '''
+    pygame.draw.polygon(_screen(), color, points, width)
+
+def arc(color, rect, start_angle, stop_angle, width=1):
+    '''\
+    Draws an arc around the given rectangle, starting and stopping at the
+    angles given. The width specifies how wide the line is.
+    '''
+    pygame.draw.arc(_screen(), color, rect, start_angle, stop_angle, width)
+
+def pixel(point, color):
+    '''\
+    Sets the pixel at the given point to the given color.
+    '''
+    _screen().set_at(point, color)
+
+def clear():
+    '''\
+    Clears the screen by making it entirely black.
+    '''
+    rectangle(BLACK, ((0, 0), SIZE))
 
 def random(x=None, y=None):
     '''\
