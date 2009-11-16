@@ -1,23 +1,22 @@
 #!/usr/bin/python
 
 import random as randy
+import time   as timey
+import atexit as atexity
+import math   as mathy
+import sys
 import pygame
 import pygame.locals
-import math
-import sys
-
-# TODO
-#
-# * Add some kind of pause when the program is done
-#   * Add some kind of Clock ticking loop to at_exit or something like that
 
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
 
-_CLOCK = None
-_FPS   = 60
+_clock         = None
+_paused        = False
+_show_fps      = False
+_explicit_exit = False
 
-_SHOW_FPS = False
+_FPS = 60
 
 _WINDOW_OPTS =        \
     pygame.DOUBLEBUF | \
@@ -86,34 +85,87 @@ GRAY    = hex("888888")
 WHITE   = hex("FFFFFF")
 # }}}
 
+@atexity.register
+def end():
+    '''\
+    If the user explicitly asks to quit the animation or image, this
+    function does nothing and immediately exits. Otherwise, this function
+    retains the image on the screen until the user explicitly exits.
+    '''
+    if _explicit_exit:
+        return
+    while True:
+        check()
+
+def pause():
+    '''\
+    Pauses the currently running program. Useful to examine the current state
+    of the screen.
+    '''
+    global _show_fps
+    global _paused
+    global _explicit_exit
+
+    while _paused:
+        for event in pygame.event.get():
+            if event.type == pygame.locals.QUIT:
+                _explicit_exit = True
+                exit()
+            if event.type == pygame.locals.KEYDOWN:
+                if event.key == pygame.locals.K_ESCAPE:
+                    _explicit_exit = True
+                    exit()
+                elif event.key == pygame.locals.K_q:
+                    _explicit_exit = True
+                    exit()
+                elif event.key == pygame.locals.K_f:
+                    _toggle_full_screen()
+                elif event.key == pygame.locals.K_v:
+                    _show_fps = not _show_fps
+                elif event.key == pygame.locals.K_p:
+                    _paused = not _paused
+        _clock.tick(_FPS)
+
+
 def check():
     '''\
     Check to see if the user wants to quit.
     That is, if they pressed Q, Esc, or tried to close the window.
     Also checks to see if the user pressed F for fullscreen.
     '''
+    global _show_fps
+    global _paused
+    global _explicit_exit
     for event in pygame.event.get():
         if event.type == pygame.locals.QUIT:
+            _explicit_exit = True
             exit()
         if event.type == pygame.locals.KEYDOWN:
             if event.key == pygame.locals.K_ESCAPE:
+                _explicit_exit = True
                 exit()
             elif event.key == pygame.locals.K_q:
+                _explicit_exit = True
                 exit()
             elif event.key == pygame.locals.K_f:
                 _toggle_full_screen()
             elif event.key == pygame.locals.K_v:
-                global _SHOW_FPS
-                _SHOW_FPS = not _SHOW_FPS
+                _show_fps = not _show_fps
+            elif event.key == pygame.locals.K_p:
+                _paused = not _paused
+                if _paused:
+                    pause()
+        pygame.display.flip()
+        _clock.tick(_FPS)
 
 def show():
     '''Set up the basic pypixel environment and run the main function'''
-    global _CLOCK
+    global _clock
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
     pygame.mouse.set_visible(False)
     pygame.display.set_caption("PyPixel")
-    _CLOCK = pygame.time.Clock()
+    _clock = pygame.time.Clock()
 
 def _screen():
     return pygame.display.get_surface()
@@ -130,9 +182,9 @@ def update():
     '''Update the display and check if the user wants to quit'''
     pygame.display.flip()
     check()
-    _CLOCK.tick(_FPS)
-    if _SHOW_FPS:
-        _debug_noln("> %4.2f\r" % _CLOCK.get_fps())
+    _clock.tick(_FPS)
+    if _show_fps:
+        _debug_noln("> %4.2f\r" % _clock.get_fps())
 
 def line(color, start, end, width=1):
     '''\
@@ -221,9 +273,9 @@ def random(x=None, y=None):
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
-def sin(x): return math.sin(math.radians(x))
-def cos(x): return math.cos(math.radians(x))
-def tan(x): return math.tan(math.radians(x))
+def sin(x): return mathy.sin(mathy.radians(x))
+def cos(x): return mathy.cos(mathy.radians(x))
+def tan(x): return mathy.tan(mathy.radians(x))
 
 sin.__doc__ = '''Return the sine of x, in degrees'''
 cos.__doc__ = '''Return the cosine of x, in degrees'''
