@@ -124,6 +124,7 @@ def pause():
                     _show_fps = not _show_fps
                 elif event.key == pygame.locals.K_p:
                     _paused = not _paused
+        pygame.display.flip()
         _clock.tick(_FPS)
 
 
@@ -172,10 +173,15 @@ def _screen():
 
 def _toggle_full_screen():
     global _full_screen
+
+    buf = pygame.display.get_surface().copy()
+
     if not _full_screen:
         pygame.display.set_mode(SIZE, _FULLSCREEN_OPTS)
     else:
         pygame.display.set_mode(SIZE, _WINDOW_OPTS)
+
+    pygame.display.get_surface().blit(buf,(0,0))
     _full_screen = not _full_screen
 
 def update():
