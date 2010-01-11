@@ -1,22 +1,25 @@
 #!/usr/bin/python
 
 import random as randy
-import time   as timey
-import atexit as atexity
 import math   as mathy
+import atexit
 import sys
 import pygame
 import pygame.locals
 
+# TODO
+# Make check and pause hidden with underscores
+
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
 
+### BEGIN PRIVATES
 _clock         = None
 _paused        = False
 _show_fps      = False
 _explicit_exit = False
 
-_FPS = 60
+_FPS = 120
 
 _WINDOW_OPTS =        \
     pygame.DOUBLEBUF | \
@@ -85,82 +88,74 @@ GRAY    = hex("888888")
 WHITE   = hex("FFFFFF")
 # }}}
 
-@atexity.register
-def end():
-    '''\
-    If the user explicitly asks to quit the animation or image, this
-    function does nothing and immediately exits. Otherwise, this function
-    retains the image on the screen until the user explicitly exits.
-    '''
-    if _explicit_exit:
-        return
-    while True:
-        check()
+# This should really be expressable with a lambda, python...
+def _toggle_show_fps():
+    global _show_fps
+    _show_fps = not _show_fps
 
-def pause():
+# This should really be expressable with a lambda, python...
+def _toggle_paused():
+    global _show_fps
+    _paused = not _paused
+
+def _explicit_exit_func():
+    global _explicit_exit
+    _explicit_exit = True
+    exit()
+
+def _toggle_full_screen():
+    global _full_screen
+    if not _full_screen:
+        pygame.display.set_mode(SIZE, _FULLSCREEN_OPTS)
+    else:
+        pygame.display.set_mode(SIZE, _WINDOW_OPTS)
+    _full_screen = not _full_screen
+
+# Mapping of keys to functions
+_keybinds = {
+    pygame.locals.K_q: _explicit_exit_func,
+    pygame.locals.K_f: _toggle_full_screen,
+    pygame.locals.K_v: _toggle_show_fps,
+    pygame.locals.K_p: _toggle_paused,
+
+    pygame.locals.K_ESCAPE: _explicit_exit_func
+}
+
+# This should really be expressable with a lambda, python...
+def noop():
+    pass
+
+def _handle_events():
+    for event in pygame.event.get():
+        if event.type == pygame.locals.QUIT:
+            _explicit_exit_func()
+        if event.type == pygame.locals.KEYDOWN:
+            # Execute the keybinding function, defaulting to a noop method
+            _keybinds.get(event.key, noop)()
+    _clock.tick(_FPS)
+    
+
+def _pause():
     '''\
     Pauses the currently running program. Useful to examine the current state
     of the screen.
     '''
-    global _show_fps
-    global _paused
-    global _explicit_exit
-
     while _paused:
-        for event in pygame.event.get():
-            if event.type == pygame.locals.QUIT:
-                _explicit_exit = True
-                exit()
-            if event.type == pygame.locals.KEYDOWN:
-                if event.key == pygame.locals.K_ESCAPE:
-                    _explicit_exit = True
-                    exit()
-                elif event.key == pygame.locals.K_q:
-                    _explicit_exit = True
-                    exit()
-                elif event.key == pygame.locals.K_f:
-                    _toggle_full_screen()
-                elif event.key == pygame.locals.K_v:
-                    _show_fps = not _show_fps
-                elif event.key == pygame.locals.K_p:
-                    _paused = not _paused
-        pygame.display.flip()
-        _clock.tick(_FPS)
+        _handle_events()
 
 
-def check():
+def _check():
     '''\
     Check to see if the user wants to quit.
     That is, if they pressed Q, Esc, or tried to close the window.
     Also checks to see if the user pressed F for fullscreen.
     '''
-    global _show_fps
-    global _paused
-    global _explicit_exit
-    for event in pygame.event.get():
-        if event.type == pygame.locals.QUIT:
-            _explicit_exit = True
-            exit()
-        if event.type == pygame.locals.KEYDOWN:
-            if event.key == pygame.locals.K_ESCAPE:
-                _explicit_exit = True
-                exit()
-            elif event.key == pygame.locals.K_q:
-                _explicit_exit = True
-                exit()
-            elif event.key == pygame.locals.K_f:
-                _toggle_full_screen()
-            elif event.key == pygame.locals.K_v:
-                _show_fps = not _show_fps
-            elif event.key == pygame.locals.K_p:
-                _paused = not _paused
-                if _paused:
-                    pause()
-        pygame.display.flip()
-        _clock.tick(_FPS)
+    _handle_events()
+    if _paused:
+        _pause()
 
 def show():
-    '''Set up the basic pypixel environment and run the main function'''
+    '''Set up the basic pypixel environment'''
     global _clock
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
@@ -171,23 +166,24 @@ def show():
 def _screen():
     return pygame.display.get_surface()
 
-def _toggle_full_screen():
-    global _full_screen
+@atexit.register
+def _end():
+    '''\
+    If the user explicitly asks to quit the animation or image, this
+    function does nothing and immediately exits. Otherwise, this function
+    retains the image on the screen until the user explicitly exits.
+    '''
+    if _explicit_exit:
+        return
+    while True:
+        _check()
 
-    buf = pygame.display.get_surface().copy()
-
-    if not _full_screen:
-        pygame.display.set_mode(SIZE, _FULLSCREEN_OPTS)
-    else:
-        pygame.display.set_mode(SIZE, _WINDOW_OPTS)
-
-    pygame.display.get_surface().blit(buf,(0,0))
-    _full_screen = not _full_screen
+### END PRIVATES
 
 def update():
     '''Update the display and check if the user wants to quit'''
     pygame.display.flip()
-    check()
+    _check()
     _clock.tick(_FPS)
     if _show_fps:
         _debug_noln("> %4.2f\r" % _clock.get_fps())
