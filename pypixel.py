@@ -7,9 +7,6 @@ import sys
 import pygame
 import pygame.locals
 
-# TODO
-# Make check and pause hidden with underscores
-
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
 
