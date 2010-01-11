@@ -16,6 +16,8 @@ _paused        = False
 _show_fps      = False
 _explicit_exit = False
 
+_TITLE = "PyPixel"
+
 _FPS = 60
 
 _WINDOW_OPTS =        \
@@ -38,53 +40,6 @@ def _debug_noln(*xs):
         print " ".join([str(x) for x in xs]),
         sys.stdout.flush()
 
-def hsv(hsv):
-    '''Create a new color from an HSV triplet'''
-    c = pygame.Color(0)
-    c.hsva = hsv + (100,) 
-    return c
-
-def hsl(hsl):
-    '''Create a new color from an HSL triplet'''
-    c = pygame.Color(0)
-    c.hsla = hsl + (100,) 
-    return c
-
-def rgb(rgb):
-    '''Create a new color from an RGB triplet'''
-    c = pygame.Color(*rgb)
-    return c
-
-def hex(hexcode):
-    '''\
-    Create a new color from a six digit hexadecimal number, as in HTML (but
-    but without the the # sign). The format is "RRGGBB" where RR, GG, and
-    BB are two digit hexadecimal digits specifying the color values for
-    red, green and blue respectively.
-    '''
-    r = int(hexcode[0:2], 16)
-    g = int(hexcode[2:4], 16)
-    b = int(hexcode[4:6], 16)
-    c = pygame.Color(r, g, b)
-    return c
-
-# {{{ Basic color palette for simple drawing
-RED     = hex("FF0000")
-ORANGE  = hex("FFA500")
-YELLOW  = hex("FFFF00")
-GREEN   = hex("00FF00")
-BLUE    = hex("0000FF")
-INDIGO  = hex("A020F0")
-VIOLET  = hex("EE82EE")
-#######################
-PINK    = hex("FFC0CB")
-#######################
-BLACK   = hex("000000")
-GREY    = hex("888888")
-GRAY    = hex("888888")
-WHITE   = hex("FFFFFF")
-# }}}
-
 # This should really be expressable with a lambda, python...
 def _toggle_show_fps():
     global _show_fps
@@ -92,7 +47,7 @@ def _toggle_show_fps():
 
 # This should really be expressable with a lambda, python...
 def _toggle_paused():
-    global _show_fps
+    global _paused
     _paused = not _paused
 
 def _explicit_exit_func():
@@ -102,10 +57,12 @@ def _explicit_exit_func():
 
 def _toggle_full_screen():
     global _full_screen
+    buf = _screen().copy()
     if not _full_screen:
         pygame.display.set_mode(SIZE, _FULLSCREEN_OPTS)
     else:
         pygame.display.set_mode(SIZE, _WINDOW_OPTS)
+    _screen().blit(buf, (0, 0))
     _full_screen = not _full_screen
 
 # Mapping of keys to functions
@@ -119,7 +76,7 @@ _keybinds = {
 }
 
 # This should really be expressable with a lambda, python...
-def noop():
+def _noop():
     pass
 
 def _handle_events():
@@ -128,7 +85,8 @@ def _handle_events():
             _explicit_exit_func()
         if event.type == pygame.locals.KEYDOWN:
             # Execute the keybinding function, defaulting to a noop method
-            _keybinds.get(event.key, noop)()
+            _keybinds.get(event.key, _noop)()
+    pygame.display.flip()
     _clock.tick(_FPS)
     
 
@@ -157,7 +115,7 @@ def show():
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
     pygame.mouse.set_visible(False)
-    pygame.display.set_caption("PyPixel")
+    pygame.display.set_caption(_TITLE)
     _clock = pygame.time.Clock()
 
 def _screen():
@@ -208,7 +166,7 @@ def rectangle(color, rect, width=0, **kwargs):
     to be the center instead of the top left corner. The rect itself is a pair
     of pairs, specifiying a location and dimensions.
     '''
-    if "center" in kwargs and kwargs["center"]:
+    if kwargs.get("center", False):
         rect2        = pygame.Rect(*rect)
         rect2.center = rect[0]
         pygame.draw.rect(_screen(), color, rect2, width)
@@ -224,7 +182,7 @@ def ellipse(color, rect, width=0, **kwargs):
     to be the center instead of the top left corner. The rect itself is a pair
     of pairs, specifiying a location and dimensions.
     '''
-    if "center" in kwargs and kwargs["center"]:
+    if kwargs.get("center", False):
         rect2        = pygame.Rect(*rect)
         rect2.center = rect[0]
         pygame.draw.ellipse(_screen(), color, rect2, width)
@@ -269,6 +227,53 @@ def random(x=None, y=None):
         return randy.randrange(0, x)
     else:
         return randy.randrange(x, y)
+
+def hsv(hsv):
+    '''Create a new color from an HSV triplet'''
+    c = pygame.Color(0)
+    c.hsva = hsv + (100,) 
+    return c
+
+def hsl(hsl):
+    '''Create a new color from an HSL triplet'''
+    c = pygame.Color(0)
+    c.hsla = hsl + (100,) 
+    return c
+
+def rgb(rgb):
+    '''Create a new color from an RGB triplet'''
+    c = pygame.Color(*rgb)
+    return c
+
+def hex(hexcode):
+    '''\
+    Create a new color from a six digit hexadecimal number, as in HTML (but
+    but without the the # sign). The format is "RRGGBB" where RR, GG, and
+    BB are two digit hexadecimal digits specifying the color values for
+    red, green and blue respectively.
+    '''
+    r = int(hexcode[0:2], 16)
+    g = int(hexcode[2:4], 16)
+    b = int(hexcode[4:6], 16)
+    c = pygame.Color(r, g, b)
+    return c
+
+# {{{ Basic color palette for simple drawing
+RED     = hex("FF0000")
+ORANGE  = hex("FFA500")
+YELLOW  = hex("FFFF00")
+GREEN   = hex("00FF00")
+BLUE    = hex("0000FF")
+INDIGO  = hex("A020F0")
+VIOLET  = hex("EE82EE")
+#######################
+PINK    = hex("FFC0CB")
+#######################
+BLACK   = hex("000000")
+GREY    = hex("888888")
+GRAY    = hex("888888")
+WHITE   = hex("FFFFFF")
+# }}}n randy.randrange(x, y)
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
