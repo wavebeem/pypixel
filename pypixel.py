@@ -16,7 +16,7 @@ _paused        = False
 _show_fps      = False
 _explicit_exit = False
 
-_FPS = 120
+_FPS = 60
 
 _WINDOW_OPTS =        \
     pygame.DOUBLEBUF | \
