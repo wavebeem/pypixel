@@ -217,9 +217,9 @@ def clear():
 
 def random(x=None, y=None):
     '''\
-    When given no arguments, return a random number in the range [0, 1).
-    When given one argument, return a random number in the range [0, x).
-    When given two arguments, return a random number in the range [x, y).
+    When given no arguments, return a random real number in the range [0, 1).
+    When given one argument, return a random integer in the range [0, x).
+    When given two arguments, return a random integer in the range [x, y).
     '''
     if x is None and y is None:
         return randy.random()

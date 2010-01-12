@@ -5,7 +5,7 @@ from pypixel import *
 show()
 
 hue = 0
-width = 2
+width = 4
 for x in xrange(0, WIDTH + 1, width):
     line(hsv((hue, 100, 100)), (x, 0), (x, HEIGHT), width)
     update()
