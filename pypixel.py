@@ -95,6 +95,7 @@ def _pause():
     Pauses the currently running program. Useful to examine the current state
     of the screen.
     '''
+    pygame.display.flip()
     while _paused:
         _handle_events()
 
@@ -132,6 +133,7 @@ def _end():
         return
     while True:
         _check()
+    pygame.display.flip()
 
 ### END PRIVATES
 
@@ -273,7 +275,7 @@ BLACK   = hex("000000")
 GREY    = hex("888888")
 GRAY    = hex("888888")
 WHITE   = hex("FFFFFF")
-# }}}n randy.randrange(x, y)
+# }}}
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
