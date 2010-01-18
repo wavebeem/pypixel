@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+# TODO
+# - Does arc need degrees to radians translation?
+# - Dose arc need a center option?
+# - Add a description section here
+
 import random as randy
 import math   as mathy
 import atexit
