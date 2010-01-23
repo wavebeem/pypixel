@@ -5,9 +5,8 @@ from pypixel import *
 show()
 
 hue  = 0
-size = (WIDTH, HEIGHT)
 while True:
-    rectangle(hsv((hue, 100, 100)), ((0, 0), size))
+    rectangle(hsv((hue, 100, 100)), ((0, 0), SIZE))
     update()
     hue += 1
     hue %= 360

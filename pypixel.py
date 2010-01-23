@@ -25,14 +25,16 @@ _TITLE = "PyPixel"
 
 _FPS = 60
 
-_WINDOW_OPTS =        \
-    pygame.DOUBLEBUF | \
-    pygame.HWSURFACE    \
+_WINDOW_OPTS = (
+    pygame.DOUBLEBUF |
+    pygame.HWSURFACE
+)
 
-_FULLSCREEN_OPTS =     \
-    pygame.DOUBLEBUF  | \
-    pygame.HWSURFACE  |  \
-    pygame.FULLSCREEN     \
+_FULLSCREEN_OPTS = (
+    pygame.DOUBLEBUF  |
+    pygame.HWSURFACE  |
+    pygame.FULLSCREEN
+)
 
 _full_screen = False
 
