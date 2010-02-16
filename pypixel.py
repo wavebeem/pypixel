@@ -213,7 +213,7 @@ def arc(color, rect, start_angle, stop_angle, width=1):
     '''
     pygame.draw.arc(_screen(), color, rect, start_angle, stop_angle, width)
 
-def pixel(point, color):
+def pixel(color, point):
     '''\
     Sets the pixel at the given point to the given color.
     '''

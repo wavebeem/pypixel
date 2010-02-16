@@ -19,17 +19,25 @@ class Star:
         return hsv((0, 0, self.brightness))
 
     @property
+    def layer0(self):
+        '''Returns the layer assuming the base layer is 0 instead of 1'''
+        return self.layer - 1
+
+    @property
     def brightness(self):
         '''Returns the brightness of the star, based on layer'''
-        return (2**(-(self.layer - 1))) * 100
+        return (2**-self.layer0) * 100
+        # return 100 / self.layer
 
     @property
     def speed(self):
         '''Returns speed based on layer for proper parallax (sp?) effect'''
+        # return int((2**-self.layer0) * Star.MAX_SPEED)
         return Star.MAX_SPEED / self.layer
 
     @property
     def size(self):
+        # return int((2**-self.layer0) * Star.MAX_SIZE)
         return Star.MAX_SIZE / self.layer
 
     @property
@@ -46,7 +54,14 @@ class Star:
 
     def render(self):
         '''Renders the star to the screen'''
-        circle(self.color, self.pos, self.size)
+        if self.size <= 0:
+            raise 'Unexpected star size %i' % self.size
+        elif self.size == 1:
+            pixel(self.color, self.pos)
+        elif self.size == 2:
+            rectangle(self.color, (self.pos, (self.size, self.size)), center=True)
+        else:
+            circle(self.color, self.pos, self.size)
 
 def chance(percent):
     return random(100) < percent
