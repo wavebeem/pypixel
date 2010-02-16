@@ -119,7 +119,7 @@ def _check():
         _pause()
 
 def show():
-    '''Set up the basic pypixel environment'''
+    '''Set up the basic pypixel environment, like the main window'''
     global _clock
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
@@ -240,19 +240,22 @@ def random(x=None, y=None):
         return random.randint(x, y)
 
 def hsv(hsv):
-    '''Create a new color from an HSV triplet'''
+    '''Create a new color from an HSV triplet. Hues range from 0 to 359,
+    saturation ranges from 0 to 100, and value ranges from 0 to 100.'''
     c = pygame.Color(0)
     c.hsva = hsv + (100,) 
     return c
 
 def hsl(hsl):
-    '''Create a new color from an HSL triplet'''
+    '''Create a new color from an HSL triplet. Hues range from 0 to 359,
+    saturation ranges from 0 to 100, and lightness ranges from 0 to 100.'''
     c = pygame.Color(0)
     c.hsla = hsl + (100,) 
     return c
 
 def rgb(rgb):
-    '''Create a new color from an RGB triplet'''
+    '''Create a new color from an RGB triplet. Red, green, and blue all range
+    from 0 to 255.'''
     c = pygame.Color(*rgb)
     return c
 
@@ -289,16 +292,16 @@ WHITE   = hex("FFFFFF")
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
 def sin(x):
-    '''Return the sine of x, in degrees'''
+    '''Return the sine of x (x is in degrees)'''
     import math
     return math.sin(radians(x))
 
 def cos(x):
-    '''Return the cosine of x, in degrees'''
+    '''Return the cosine of x (x is in degrees)'''
     import math
-    return mathy.cos(radians(x))
+    return math.cos(radians(x))
 
 def tan(x):
-    '''Return the tangent of x, in degrees'''
+    '''Return the tangent of x (x is in degrees)'''
     import math
-    return mathy.tan(radians(x))
+    return math.tan(radians(x))

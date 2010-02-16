@@ -8,7 +8,7 @@ class Star:
     MAX_SIZE  = 8
 
     def __init__(self, layer, pos):
-        '''Just stores the layer'''
+        '''Stores the layer and position for the star'''
         self.layer = layer
         self.x, self.y = 0, pos
 
