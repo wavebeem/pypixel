@@ -5,8 +5,9 @@
 # - Dose arc need a center option?
 # - Add a description section here
 
-import random as randy
-import math   as mathy
+
+from math import log, sqrt, radians, degrees
+
 import atexit
 import sys
 import pygame
@@ -230,12 +231,13 @@ def random(x=None, y=None):
     When given one argument, return a random integer in the range [0, x).
     When given two arguments, return a random integer in the range [x, y).
     '''
+    import random
     if x is None and y is None:
-        return randy.random()
+        return random.random()
     elif y is None:
-        return randy.randrange(0, x)
+        return random.randint(0, x)
     else:
-        return randy.randrange(x, y)
+        return random.randint(x, y)
 
 def hsv(hsv):
     '''Create a new color from an HSV triplet'''
@@ -286,13 +288,17 @@ WHITE   = hex("FFFFFF")
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
-def sin(x): return mathy.sin(mathy.radians(x))
-def cos(x): return mathy.cos(mathy.radians(x))
-def tan(x): return mathy.tan(mathy.radians(x))
+def sin(x):
+    '''Return the sine of x, in degrees'''
+    import math
+    return math.sin(radians(x))
 
-sin.__doc__ = '''Return the sine of x, in degrees'''
-cos.__doc__ = '''Return the cosine of x, in degrees'''
-tan.__doc__ = '''Return the tangent of x, in degrees'''
+def cos(x):
+    '''Return the cosine of x, in degrees'''
+    import math
+    return mathy.cos(radians(x))
 
-log  = mathy.log
-sqrt = mathy.sqrt
+def tan(x):
+    '''Return the tangent of x, in degrees'''
+    import math
+    return mathy.tan(radians(x))
