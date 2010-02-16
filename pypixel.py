@@ -293,3 +293,6 @@ def tan(x): return mathy.tan(mathy.radians(x))
 sin.__doc__ = '''Return the sine of x, in degrees'''
 cos.__doc__ = '''Return the cosine of x, in degrees'''
 tan.__doc__ = '''Return the tangent of x, in degrees'''
+
+log  = mathy.log
+sqrt = mathy.sqrt
