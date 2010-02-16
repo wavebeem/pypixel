@@ -4,7 +4,7 @@ from pypixel import *
 
 class Star:
     '''This class represents a star in the screensaver'''
-    MAX_SPEED = 5
+    MAX_SPEED = 8
     MAX_SIZE  = 8
 
     def __init__(self, layer, pos):
@@ -60,9 +60,9 @@ while True:
         star.move()
         star.render()
     stars = filter(lambda star: star.in_bounds(), stars)
-    if chance(10): stars.append(Star(1, random(HEIGHT)))
-    if chance(20): stars.append(Star(2, random(HEIGHT)))
-    if chance(30): stars.append(Star(3, random(HEIGHT)))
-    if chance(40): stars.append(Star(4, random(HEIGHT)))
+    if chance( 5): stars.append(Star(1, random(HEIGHT)))
+    if chance(10): stars.append(Star(2, random(HEIGHT)))
+    if chance(20): stars.append(Star(3, random(HEIGHT)))
+    if chance(35): stars.append(Star(4, random(HEIGHT)))
     update()
     clear()
