@@ -2,8 +2,6 @@
 
 from pypixel import *
 
-show()
-
 class Star:
     '''This class represents a star in the screensaver'''
     MAX_SPEED = 5
@@ -23,7 +21,7 @@ class Star:
     @property
     def brightness(self):
         '''Returns the brightness of the star, based on layer'''
-        return (3**(-(self.layer - 1))) * 100
+        return (2**(-(self.layer - 1))) * 100
 
     @property
     def speed(self):
@@ -53,6 +51,9 @@ class Star:
 def chance(percent):
     return random(100) < percent
 
+# Bring up the main window
+show()
+
 stars = []
 while True:
     for star in stars:
@@ -62,5 +63,6 @@ while True:
     if chance(10): stars.append(Star(1, random(HEIGHT)))
     if chance(20): stars.append(Star(2, random(HEIGHT)))
     if chance(30): stars.append(Star(3, random(HEIGHT)))
+    if chance(40): stars.append(Star(4, random(HEIGHT)))
     update()
     clear()
