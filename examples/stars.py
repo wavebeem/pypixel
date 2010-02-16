@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from pypixel import *
-from time    import sleep, time
 
 show()
 
