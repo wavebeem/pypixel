@@ -55,7 +55,7 @@ class Star:
     def render(self):
         '''Renders the star to the screen'''
         if self.size <= 0:
-            raise Exception('Unexpected star size %i' % self.size)
+            raise Exception('Unexpected star size: %i' % self.size)
         elif self.size == 1:
             pixel(self.color, self.pos)
         elif self.size == 2:
