@@ -15,6 +15,7 @@ import pygame.locals
 
 # Screen size
 SIZE = WIDTH, HEIGHT = 640, 480
+CENTER = (WIDTH/2, HEIGHT/2)
 
 ### BEGIN PRIVATES
 _clock         = None
@@ -206,6 +207,14 @@ def polygon(color, points, width=0):
     '''
     pygame.draw.polygon(_screen(), color, points, width)
 
+def equilateral(color, center, length, width=0):
+    '''Draws an equilateral triangle with side length length.'''
+    x, y = center
+    bottom_left  = x - length/2, y + length/2
+    bottom_right = x + length/2, y + length/2
+    top = x, y - length/2
+    polygon(color, [bottom_left, top, bottom_right], width)
+
 def arc(color, rect, start_angle, stop_angle, width=1):
     '''\
     Draws an arc around the given rectangle, starting and stopping at the
@@ -214,15 +223,11 @@ def arc(color, rect, start_angle, stop_angle, width=1):
     pygame.draw.arc(_screen(), color, rect, start_angle, stop_angle, width)
 
 def pixel(color, point):
-    '''\
-    Sets the pixel at the given point to the given color.
-    '''
+    '''Sets the pixel at the given point to the given color.'''
     _screen().set_at(point, color)
 
 def clear():
-    '''\
-    Clears the screen by making it entirely black.
-    '''
+    '''Clears the screen by making it entirely black.'''
     rectangle(BLACK, ((0, 0), SIZE))
 
 def random(x=None, y=None):
@@ -288,6 +293,14 @@ GREY    = hex("888888")
 GRAY    = hex("888888")
 WHITE   = hex("FFFFFF")
 # }}}
+
+# Possibly better not to have to teach modulo immediately
+def odd(x):
+    '''Returns true if x is odd, false otherwise'''
+    return (x % 2) == 1
+def even(x):
+    '''Returns true if x is even, false otherwise'''
+    return (x % 2) == 0
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.

@@ -51,6 +51,10 @@ class Star:
     def in_bounds(self):
         '''Checks if the star is within the bounds of the screen'''
         return 0 <= self.x <= WIDTH
+        
+    def out_of_bounds(self):
+        '''Checks if the star is out of the bounds of the screen'''
+        return not self.in_bounds()
 
     def render(self):
         '''Renders the star to the screen'''
