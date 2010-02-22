@@ -2,7 +2,7 @@
 
 # TODO
 # - Does arc need degrees to radians translation?
-# - Dose arc need a center option?
+# - Does arc need a center option?
 # - Add a description section here
 
 
