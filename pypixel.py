@@ -42,11 +42,11 @@ _full_screen = False
 
 def _debug(*xs):
     if __debug__:
-        print " ".join([str(x) for x in xs])
+        print " ".join(map(str, xs))
 
 def _debug_noln(*xs):
     if __debug__:
-        print " ".join([str(x) for x in xs]),
+        print " ".join(map(str, xs)),
         sys.stdout.flush()
 
 # This should really be expressable with a lambda, python...
