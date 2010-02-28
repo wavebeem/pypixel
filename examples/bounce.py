@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from pypixel import *
-from math    import fabs
 
 import sys
 
@@ -22,5 +21,5 @@ while not (v_y == 0):
     v_y += a_y
     if y > HEIGHT:
         v_y *= -0.9
-    if fabs(v_y) < 0.05 and (HEIGHT - h) < y < HEIGHT:
+    if abs(v_y) < 0.05 and (HEIGHT - h) < y < HEIGHT:
         v_y = 0
