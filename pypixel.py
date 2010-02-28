@@ -6,7 +6,7 @@
 # - Add a description section here
 
 
-from math import log, sqrt, radians, degrees
+from math import log, sqrt, radians, degrees, abs
 
 import atexit
 import sys
@@ -298,6 +298,7 @@ WHITE   = hex("FFFFFF")
 def odd(x):
     '''Returns true if x is odd, false otherwise'''
     return (x % 2) == 1
+
 def even(x):
     '''Returns true if x is even, false otherwise'''
     return (x % 2) == 0
