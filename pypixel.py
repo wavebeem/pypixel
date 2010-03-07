@@ -124,8 +124,8 @@ def _check():
 def show():
     '''Set up the basic pypixel environment, like the main window.'''
     global _clock
-    title(None)
     pygame.init()
+    title(None)
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
     pygame.mouse.set_visible(False)
     _clock = pygame.time.Clock()
