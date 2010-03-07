@@ -1,9 +1,12 @@
 #!/usr/bin/python
 
+# Copyright (C) 2010 Brian Mock
 # TODO
-# - Does arc need degrees to radians translation?
-# - Does arc need a center option?
-# - Add a description section here
+
+'''
+pypixel is a simple graphics library intended for educational use.
+It is a collection of verbosely named functions that achieve basic geometric shape drawing.
+'''
 
 
 from math import log, sqrt, radians, degrees
@@ -213,12 +216,17 @@ def equilateral(color, center, length, width=0):
     top = x, y - length/2
     polygon(color, [bottom_left, top, bottom_right], width)
 
-def arc(color, rect, start_angle, stop_angle, width=1):
+def arc(color, rect, start_angle, stop_angle, width=1, **kwargs):
     '''\
     Draws an arc around the given rectangle, starting and stopping at the
-    angles given. The width specifies how wide the line is.
+    angles given. The width specifies how wide the line is. Takes optional "center" keyword.
     '''
-    pygame.draw.arc(_screen(), color, rect, start_angle, stop_angle, width)
+    rect2 = pygame.Rect(*rect)
+    start_angle = radians(start_angle)
+    stop_angle  = radians(stop_angle)
+    if kwargs.get("center", False):
+        rect2.center = rect[0]
+    pygame.draw.arc(_screen(), color, rect2, start_angle, stop_angle, width)
 
 def pixel(color, point):
     '''Sets the pixel at the given point to the given color.'''
