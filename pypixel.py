@@ -182,7 +182,7 @@ def rectangle(color, rect, width=0, **kwargs):
     rect2 = pygame.Rect(*rect)
     if kwargs.get("center", False):
         rect2.center = rect[0]
-        pygame.draw.rect(_screen(), color, rect2, width)
+    pygame.draw.rect(_screen(), color, rect2, width)
 
 def ellipse(color, rect, width=0, **kwargs):
     '''\
