@@ -6,7 +6,7 @@
 # - Add a description section here
 
 
-from math import log, sqrt, radians, degrees, abs
+from math import log, sqrt, radians, degrees
 
 import atexit
 import sys
@@ -23,7 +23,9 @@ _paused        = False
 _show_fps      = False
 _explicit_exit = False
 
-_TITLE = "PyPixel"
+_VERSION = "1.0"
+_TITLE = "PyPixel " + _VERSION
+_program = None
 
 _FPS = 60
 
@@ -120,12 +122,12 @@ def _check():
         _pause()
 
 def show():
-    '''Set up the basic pypixel environment, like the main window'''
+    '''Set up the basic pypixel environment, like the main window.'''
     global _clock
+    title(None)
     pygame.init()
     pygame.display.set_mode(SIZE, _WINDOW_OPTS)
     pygame.mouse.set_visible(False)
-    pygame.display.set_caption(_TITLE)
     _clock = pygame.time.Clock()
 
 def _screen():
@@ -147,7 +149,7 @@ def _end():
 ### END PRIVATES
 
 def update():
-    '''Update the display and check if the user wants to quit'''
+    '''Update the display and check if the user wants to quit.'''
     pygame.display.flip()
     _check()
     _clock.tick(_FPS)
@@ -177,12 +179,10 @@ def rectangle(color, rect, width=0, **kwargs):
     to be the center instead of the top left corner. The rect itself is a pair
     of pairs, specifiying a location and dimensions.
     '''
+    rect2 = pygame.Rect(*rect)
     if kwargs.get("center", False):
-        rect2        = pygame.Rect(*rect)
         rect2.center = rect[0]
         pygame.draw.rect(_screen(), color, rect2, width)
-    else:
-        pygame.draw.rect(_screen(), color, pygame.Rect(*rect), width)
 
 def ellipse(color, rect, width=0, **kwargs):
     '''\
@@ -193,12 +193,10 @@ def ellipse(color, rect, width=0, **kwargs):
     to be the center instead of the top left corner. The rect itself is a pair
     of pairs, specifiying a location and dimensions.
     '''
+    rect2 = pygame.Rect(*rect)
     if kwargs.get("center", False):
-        rect2        = pygame.Rect(*rect)
         rect2.center = rect[0]
-        pygame.draw.ellipse(_screen(), color, rect2, width)
-    else:
-        pygame.draw.ellipse(_screen(), color, pygame.Rect(*rect), width)
+    pygame.draw.ellipse(_screen(), color, rect2, width)
 
 def polygon(color, points, width=0):
     '''\
@@ -296,26 +294,53 @@ WHITE   = hex("FFFFFF")
 
 # Possibly better not to have to teach modulo immediately
 def odd(x):
-    '''Returns true if x is odd, false otherwise'''
+    '''Returns true if x is odd, false otherwise.'''
     return (x % 2) == 1
 
 def even(x):
-    '''Returns true if x is even, false otherwise'''
+    '''Returns true if x is even, false otherwise.'''
     return (x % 2) == 0
 
 # Most people can think easier in degrees than radians. These functions allow
 # them to do so.
 def sin(x):
-    '''Return the sine of x (x is in degrees)'''
-    import math
+    '''Return the sine of x (x is in degrees).'''
+    from math import sin, cos, tan
     return math.sin(radians(x))
 
 def cos(x):
-    '''Return the cosine of x (x is in degrees)'''
-    import math
+    '''Return the cosine of x (x is in degrees).'''
+    from math import sin, cos, tan
     return math.cos(radians(x))
 
 def tan(x):
-    '''Return the tangent of x (x is in degrees)'''
-    import math
+    '''Return the tangent of x (x is in degrees).'''
+    from math import sin, cos, tan
     return math.tan(radians(x))
+
+def abs(x):
+    '''Return the absolute value of the argument.'''
+    from math import fabs
+    if isinstance(x, int):
+        return int(fabs(x))
+    else:
+        return fabs(x)
+
+def midpoint(p1, p2):
+    '''Returns the midpoint of p1 and p2.'''
+    x1, y1 = p1
+    x2, y2 = p2
+
+    xm, ym = (x1 + x2)/2, (y1 + y2)/2
+
+    return (xm, ym)
+
+def title(t):
+    '''Sets the title of the currently running program.'''
+    global _program
+    if t is not None:
+        _program = t
+    if _program is None:
+        pygame.display.set_caption(_TITLE)
+    else:
+        pygame.display.set_caption(_program + ' :: ' + _TITLE)
