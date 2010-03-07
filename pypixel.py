@@ -1,8 +1,4 @@
 #!/usr/bin/python
-
-# Copyright (C) 2010 Brian Mock
-# TODO
-
 '''
 pypixel is a simple graphics library intended for educational use.
 It is a collection of verbosely named functions that achieve basic geometric shape drawing.
