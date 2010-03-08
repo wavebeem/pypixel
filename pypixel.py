@@ -310,17 +310,17 @@ def even(x):
 def sin(x):
     '''Return the sine of x (x is in degrees).'''
     from math import sin, cos, tan
-    return math.sin(radians(x))
+    return sin(radians(x))
 
 def cos(x):
     '''Return the cosine of x (x is in degrees).'''
     from math import sin, cos, tan
-    return math.cos(radians(x))
+    return cos(radians(x))
 
 def tan(x):
     '''Return the tangent of x (x is in degrees).'''
     from math import sin, cos, tan
-    return math.tan(radians(x))
+    return tan(radians(x))
 
 def abs(x):
     '''Return the absolute value of the argument.'''
@@ -340,7 +340,8 @@ def midpoint(p1, p2):
     return (xm, ym)
 
 def title(t):
-    '''Sets the title of the currently running program.'''
+    '''Sets the title of the currently running program.
+    Using None, this resets to a default title.'''
     global _program
     if t is not None:
         _program = t
