@@ -71,6 +71,7 @@ def chance(percent):
     return random(100) < percent
 
 # Bring up the main window
+title("Parallax star field demo")
 show()
 
 stars = []

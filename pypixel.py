@@ -348,4 +348,4 @@ def title(t):
     if _program is None:
         pygame.display.set_caption(_TITLE)
     else:
-        pygame.display.set_caption(_program + ' :: ' + _TITLE)
+        pygame.display.set_caption(_program + '   :::   ' + _TITLE)
