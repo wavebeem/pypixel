@@ -4,7 +4,6 @@ pypixel is a simple graphics library intended for educational use.
 It is a collection of verbosely named functions that achieve basic geometric shape drawing.
 '''
 
-
 from math import log, sqrt, radians, degrees
 
 import atexit
