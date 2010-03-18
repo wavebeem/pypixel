@@ -23,6 +23,7 @@ _clock         = None
 _paused        = False
 _show_fps      = False
 _explicit_exit = False
+_video_is_on   = False
 
 _TITLE = "PyPixel " + __version__
 _program = None
@@ -97,9 +98,12 @@ def _handle_events():
         if event.type == pygame.locals.KEYDOWN:
             # Execute the keybinding function, defaulting to a noop method
             _keybinds.get(event.key, _noop)()
-    pygame.display.flip()
+    _try_to_flip()
     _clock.tick(_FPS)
-    
+
+def _try_to_flip():
+    if _video_is_on:
+        pygame.display.flip()
 
 def _pause():
     '''\
@@ -121,15 +125,6 @@ def _check():
     if _paused:
         _pause()
 
-def show():
-    '''Set up the basic pypixel environment, like the main window.'''
-    global _clock
-    pygame.init()
-    title(None)
-    pygame.display.set_mode(SIZE, _WINDOW_OPTS)
-    pygame.mouse.set_visible(False)
-    _clock = pygame.time.Clock()
-
 def _screen():
     return pygame.display.get_surface()
 
@@ -142,11 +137,23 @@ def _end():
     '''
     if _explicit_exit:
         return
-    while True:
-        _check()
-    pygame.display.flip()
+    if _video_is_on:
+        while True:
+            _check()
+    _try_to_flip()
 
 ### END PRIVATES
+
+def show():
+    '''Set up the basic pypixel environment, like the main window.'''
+    global _clock
+    global _video_is_on
+    pygame.init()
+    title(None)
+    pygame.display.set_mode(SIZE, _WINDOW_OPTS)
+    pygame.mouse.set_visible(False)
+    _clock = pygame.time.Clock()
+    _video_is_on = True
 
 def update():
     '''Update the display and check if the user wants to quit.'''
