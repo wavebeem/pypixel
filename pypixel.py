@@ -4,6 +4,9 @@ pypixel is a simple graphics library intended for educational use.
 It is a collection of verbosely named functions that achieve basic geometric shape drawing.
 '''
 
+__author__  = "Brian Mock <mock.brian@gmail.com>"
+__version__ = "1.0"
+
 from math import log, sqrt, radians, degrees
 
 import atexit
@@ -21,8 +24,7 @@ _paused        = False
 _show_fps      = False
 _explicit_exit = False
 
-_VERSION = "1.0"
-_TITLE = "PyPixel " + _VERSION
+_TITLE = "PyPixel " + __version__
 _program = None
 
 _FPS = 60
@@ -156,14 +158,14 @@ def update():
 
 def line(color, start, end, width=1):
     '''\
-    Draw a line on the _screen.
+    Draw a line on the screen.
     If width is not given, make it 1px wide.
     '''
     pygame.draw.line(_screen(), color, start, end, width)
 
 def circle(color, center, radius, width=0):
     '''\
-    Draw a circle on the _screen.
+    Draw a circle on the screen.
     if width is 0 or not given, fill in the circle.
     '''
     pygame.draw.circle(_screen(), color, center, radius, width)
