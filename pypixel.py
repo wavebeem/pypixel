@@ -7,7 +7,7 @@ It is a collection of verbosely named functions that achieve basic geometric sha
 __author__  = "Brian Mock <mock.brian@gmail.com>"
 __version__ = "1.0"
 
-from math import log, sqrt, radians, degrees
+from math import log, sqrt, radians, degrees, pi, e
 
 import atexit
 import sys
