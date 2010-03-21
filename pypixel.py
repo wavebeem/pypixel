@@ -338,6 +338,20 @@ def abs(x):
     else:
         return fabs(x)
 
+def polar(point):
+    '''This function converts a polar point (r, theta) to a cartesian point (x, y)'''
+    r, theta = point
+
+    def adjust(point):
+        x, y = point
+        return (x + WIDTH/2, y + HEIGHT/2)
+
+    def int_pair(point):
+        x, y = point
+        return (int(x), int(y))
+
+    return int_pair(adjust((r * cos(theta), r * sin(theta))))
+
 def midpoint(p1, p2):
     '''Returns the midpoint of p1 and p2.'''
     x1, y1 = p1
