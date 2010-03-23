@@ -12,7 +12,7 @@ h = base_size
 sat = 0
 
 def porm():
-    if random(2) == 0:
+    if random(0, 1) == 0:
         return -1
     else:
         return +1

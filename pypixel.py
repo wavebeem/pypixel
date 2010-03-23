@@ -4,6 +4,10 @@ pypixel is a simple graphics library intended for educational use.
 It is a collection of verbosely named functions that achieve basic geometric shape drawing.
 '''
 
+# TODO
+# - Wrap Python functions so we can have standard documentation style?
+# - Change arc() to use a circle
+
 __author__  = "Brian Mock <mock.brian@gmail.com>"
 __version__ = "1.0"
 
@@ -95,7 +99,7 @@ def _handle_events():
     for event in pygame.event.get():
         if event.type == pygame.locals.QUIT:
             _explicit_exit_func()
-        if event.type == pygame.locals.KEYDOWN:
+        elif event.type == pygame.locals.KEYDOWN:
             # Execute the keybinding function, defaulting to a noop method
             _keybinds.get(event.key, _noop)()
     _try_to_flip()
@@ -220,17 +224,18 @@ def equilateral(color, center, length, width=0):
     top = x, y - length/2
     polygon(color, [bottom_left, top, bottom_right], width)
 
-def arc(color, rect, start_angle, stop_angle, width=1, **kwargs):
+def arc(color, circ, start_angle, stop_angle, width=1, **kwargs):
     '''\
-    Draws an arc around the given rectangle, starting and stopping at the
-    angles given. The width specifies how wide the line is. Takes optional "center" keyword.
+    Draws an arc on the circle circ from start_angle to stop_angle of width
+    width. circ is of the form ((x, y), radius) or (center, radius).
+    Note that setting width to 0 will NOT fill in the arc.
     '''
-    rect2 = pygame.Rect(*rect)
+    point, radius = circ
+    rect = pygame.Rect((0, 0), (radius, radius))
+    rect.center = point
     start_angle = radians(start_angle)
     stop_angle  = radians(stop_angle)
-    if kwargs.get("center", False):
-        rect2.center = rect[0]
-    pygame.draw.arc(_screen(), color, rect2, start_angle, stop_angle, width)
+    pygame.draw.arc(_screen(), color, rect, start_angle, stop_angle, width)
 
 def pixel(color, point):
     '''Sets the pixel at the given point to the given color.'''
@@ -254,54 +259,48 @@ def random(x=None, y=None):
     else:
         return random.randint(x, y)
 
-def hsv(hsv):
+def hsv2rgb(hsv):
     '''Create a new color from an HSV triplet. Hues range from 0 to 359,
     saturation ranges from 0 to 100, and value ranges from 0 to 100.'''
     c = pygame.Color(0)
     c.hsva = hsv + (100,) 
-    return c
+    return c[0:-1]
 
-def hsl(hsl):
+def hsl2rgb(hsl):
     '''Create a new color from an HSL triplet. Hues range from 0 to 359,
     saturation ranges from 0 to 100, and lightness ranges from 0 to 100.'''
     c = pygame.Color(0)
     c.hsla = hsl + (100,) 
-    return c
+    return c[0:-1]
 
-def rgb(rgb):
-    '''Create a new color from an RGB triplet. Red, green, and blue all range
-    from 0 to 255.'''
-    c = pygame.Color(*rgb)
-    return c
-
-def hex(hexcode):
+def hex2rgb(hexcode):
     '''\
     Create a new color from a six digit hexadecimal number, as in HTML (but
-    but without the the # sign). The format is "RRGGBB" where RR, GG, and
-    BB are two digit hexadecimal digits specifying the color values for
-    red, green and blue respectively.
+    but without the the # sign). The format is a string of the form "RRGGBB"
+    where RR, GG, and BB are two digit hexadecimal digits specifying the color
+    values for red, green and blue respectively.
     '''
     r = int(hexcode[0:2], 16)
     g = int(hexcode[2:4], 16)
     b = int(hexcode[4:6], 16)
     c = pygame.Color(r, g, b)
-    return c
+    return c[0:-1]
 
 # {{{ Basic color palette for simple drawing
-RED     = hex("FF0000")
-ORANGE  = hex("FFA500")
-YELLOW  = hex("FFFF00")
-GREEN   = hex("00FF00")
-BLUE    = hex("0000FF")
-INDIGO  = hex("A020F0")
-VIOLET  = hex("EE82EE")
+RED     = hex2rgb("FF0000")
+ORANGE  = hex2rgb("FFA500")
+YELLOW  = hex2rgb("FFFF00")
+GREEN   = hex2rgb("00FF00")
+BLUE    = hex2rgb("0000FF")
+INDIGO  = hex2rgb("A020F0")
+VIOLET  = hex2rgb("EE82EE")
 #######################
-PINK    = hex("FFC0CB")
+PINK    = hex2rgb("FFC0CB")
 #######################
-BLACK   = hex("000000")
-GREY    = hex("888888")
-GRAY    = hex("888888")
-WHITE   = hex("FFFFFF")
+BLACK   = hex2rgb("000000")
+GREY    = hex2rgb("888888")
+GRAY    = hex2rgb("888888")
+WHITE   = hex2rgb("FFFFFF")
 # }}}
 
 # Possibly better not to have to teach modulo immediately
@@ -338,7 +337,7 @@ def abs(x):
     else:
         return fabs(x)
 
-def polar(point):
+def cartesian(polar):
     '''This function converts a polar point (r, theta) to a cartesian point (x, y)'''
     r, theta = point
 
