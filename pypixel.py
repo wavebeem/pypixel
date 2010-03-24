@@ -6,7 +6,6 @@ It is a collection of verbosely named functions that achieve basic geometric sha
 
 # TODO
 # - Wrap Python functions so we can have standard documentation style?
-# - Change arc() to use a circle
 
 __author__  = "Brian Mock <mock.brian@gmail.com>"
 __version__ = "1.0"
