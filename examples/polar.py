@@ -17,10 +17,10 @@ STEP_SIZE = 500
 while True:
     for i in xrange(STEP_SIZE):
         hue   = int(theta/10.0)
-        color = hsv((hue, 100, 100))
+        color = hsv2rgb((hue, 100, 100))
 
         r = f(theta)
-        point = polar((r, theta))
+        point = cartesian((r, theta))
 
         circle(color, point, radius)
 

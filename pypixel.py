@@ -338,7 +338,7 @@ def abs(x):
 
 def cartesian(polar):
     '''This function converts a polar point (r, theta) to a cartesian point (x, y)'''
-    r, theta = point
+    r, theta = polar
 
     def adjust(point):
         x, y = point

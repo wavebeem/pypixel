@@ -13,7 +13,7 @@ size    = 100
 while True:
     x2 = radius * cos(angle) + x1
     y2 = radius * sin(angle) + y1
-    line(hsv((hue, 100, 100)), (x1, y1), (x2, y2), size)
+    line(hsv2rgb((hue, 100, 100)), (x1, y1), (x2, y2), size)
     circle(BLACK, (WIDTH/2, HEIGHT/2), size)
     update()
 

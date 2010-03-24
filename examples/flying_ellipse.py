@@ -37,7 +37,7 @@ while True:
     sat += 1
     sat %= 100
 
-    color = hsv((0, sat, 100))
+    color = hsv2rgb((0, sat, 100))
     ellipse(color, ((x, y), (w, h)), center=True)
     update()
     ellipse(BLACK, ((x, y), (w, h)), center=True)

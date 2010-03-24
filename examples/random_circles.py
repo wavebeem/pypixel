@@ -11,6 +11,6 @@ while True:
     h = random(360)
     s = 100
     v = 100
-    c = hsv((h, s, v))
+    c = hsv2rgb((h, s, v))
     circle(c, (x, y), r)
     update()

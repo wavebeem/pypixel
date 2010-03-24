@@ -16,7 +16,7 @@ class Star:
     def color(self):
         '''Returns the appropriate color based on layer so stars look closer
         or farther away'''
-        return hsv((0, 0, self.brightness))
+        return hsv2rgb((0, 0, self.brightness))
 
     @property
     def layer0(self):

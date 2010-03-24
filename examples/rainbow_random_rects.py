@@ -14,7 +14,7 @@ while True:
     hue %= 360
     sat  = 100
     val  = 100
-    col  = hsv((hue, sat, val))
+    col  = hsv2rgb((hue, sat, val))
     rect = ((x, y), (w, h))
     rectangle(col, rect, center=True)
     update()
