@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 '''
 pypixel is a simple graphics library intended for educational use.
 It is a collection of verbosely named functions that achieve basic geometric shape drawing.
@@ -113,9 +113,17 @@ def _pause():
     Pauses the currently running program. Useful to examine the current state
     of the screen.
     '''
+    global _paused
+    _debug("::: Pausing game")
+    _paused = True
     pygame.display.flip()
     while _paused:
         _handle_events()
+
+def _play_pause():
+    '''Toggle between paused and unpaused states.'''
+    global _paused
+    _paused = not _paused
 
 
 def _check():
@@ -138,12 +146,8 @@ def _end():
     function does nothing and immediately exits. Otherwise, this function
     retains the image on the screen until the user explicitly exits.
     '''
-    if _explicit_exit:
-        return
-    if _video_is_on:
-        while True:
-            _check()
-    _try_to_flip()
+    if _video_is_on and not _explicit_exit:
+        _pause()
 
 ### END PRIVATES
 
