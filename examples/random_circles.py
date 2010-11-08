@@ -7,10 +7,12 @@ show()
 while True:
     x = random(WIDTH)
     y = random(HEIGHT)
-    r = random(1, 100)
+    radius = random(1, 100)
     h = random(360)
     s = 100
     v = 100
-    c = hsv2rgb((h, s, v))
-    circle(c, (x, y), r)
+    hsv = (h, s, v)
+    color = hsv2rgb(hsv)
+    point = (x, y)
+    circle(color, point, radius)
     update()
