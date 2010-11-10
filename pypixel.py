@@ -248,32 +248,39 @@ def clear():
     '''Clears the screen by making it entirely black.'''
     rectangle(BLACK, ((0, 0), SIZE))
 
-def random(x=None, y=None):
+def random(x=None, y=None, **kwargs):
     '''\
     When given no arguments, return a random real number in the range [0, 1).
     When given one argument, return a random integer in the range [0, x).
     When given two arguments, return a random integer in the range [x, y).
+    If the argument 'end=False' is included, the random does not include the endpoint.
     '''
     import random
+    rand_func = None
+    if kwargs.get("end", True):
+        rand_func = random.randint
+    else:
+        rand_func = random.randrange
+
     if x is None and y is None:
         return random.random()
     elif y is None:
-        return random.randint(0, x)
+        return rand_func(0, x)
     else:
-        return random.randint(x, y)
+        return rand_func(x, y)
 
 def hsv2rgb(hsv):
     '''Create a new color from an HSV triplet. Hues range from 0 to 359,
     saturation ranges from 0 to 100, and value ranges from 0 to 100.'''
     c = pygame.Color(0)
-    c.hsva = hsv + (100,) 
+    c.hsva = hsv + (1,) 
     return c[0:-1]
 
 def hsl2rgb(hsl):
     '''Create a new color from an HSL triplet. Hues range from 0 to 359,
     saturation ranges from 0 to 100, and lightness ranges from 0 to 100.'''
     c = pygame.Color(0)
-    c.hsla = hsl + (100,) 
+    c.hsla = hsl + (1,) 
     return c[0:-1]
 
 def hex2rgb(hexcode):

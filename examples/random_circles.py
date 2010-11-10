@@ -8,7 +8,7 @@ while True:
     x = random(WIDTH)
     y = random(HEIGHT)
     radius = random(1, 100)
-    h = random(360)
+    h = random(360, end=False)
     s = 100
     v = 100
     hsv = (h, s, v)
