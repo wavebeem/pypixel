@@ -8,3 +8,5 @@ for i in xrange(100):
     y = random(0, HEIGHT)
     pixel(WHITE, (x, y))
     update()
+
+pause()

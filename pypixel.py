@@ -12,7 +12,6 @@ __version__ = "1.0"
 
 from math import log, sqrt, radians, degrees, pi, e
 
-import atexit
 import sys
 import pygame
 import pygame.locals
@@ -25,7 +24,6 @@ CENTER = (WIDTH/2, HEIGHT/2)
 _clock         = None
 _paused        = False
 _show_fps      = False
-_explicit_exit = False
 _video_is_on   = False
 
 _TITLE = "PyPixel " + __version__
@@ -65,10 +63,6 @@ def _toggle_paused():
     global _paused
     _paused = not _paused
 
-def _explicit_exit_func():
-    global _explicit_exit
-    _explicit_exit = True
-    exit()
 
 def _toggle_full_screen():
     global _full_screen
@@ -82,12 +76,13 @@ def _toggle_full_screen():
 
 # Mapping of keys to functions
 _keybinds = {
-    pygame.locals.K_q: _explicit_exit_func,
+    pygame.locals.K_q: exit,
     pygame.locals.K_f: _toggle_full_screen,
     pygame.locals.K_v: _toggle_show_fps,
     pygame.locals.K_p: _toggle_paused,
 
-    pygame.locals.K_ESCAPE: _explicit_exit_func
+    pygame.locals.K_SPACE:  _toggle_paused,
+    pygame.locals.K_ESCAPE: exit,
 }
 
 # This should really be expressable with a lambda, python...
@@ -97,7 +92,7 @@ def _noop():
 def _handle_events():
     for event in pygame.event.get():
         if event.type == pygame.locals.QUIT:
-            _explicit_exit_func()
+            exit()
         elif event.type == pygame.locals.KEYDOWN:
             # Execute the keybinding function, defaulting to a noop method
             _keybinds.get(event.key, _noop)()
@@ -108,7 +103,7 @@ def _try_to_flip():
     if _video_is_on:
         pygame.display.flip()
 
-def _pause():
+def pause():
     '''\
     Pauses the currently running program. Useful to examine the current state
     of the screen.
@@ -134,24 +129,10 @@ def _check():
     '''
     _handle_events()
     if _paused:
-        _pause()
+        pause()
 
 def _screen():
     return pygame.display.get_surface()
-
-@atexit.register
-def _end():
-    '''\
-    If the user explicitly asks to quit the animation or image, this
-    function does nothing and immediately exits. Otherwise, this function
-    retains the image on the screen until the user explicitly exits.
-    '''
-    if _video_is_on and not _explicit_exit:
-        _pause()
-
-    import threading
-    for thread in threading.enumerate():
-        thread.join()
 
 ### END PRIVATES
 

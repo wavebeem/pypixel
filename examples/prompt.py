@@ -14,3 +14,5 @@ for n in xrange(number_of_circles):
     circle(WHITE, point, 10)
 
 update()
+
+pause()

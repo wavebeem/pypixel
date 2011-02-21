@@ -12,3 +12,5 @@ for x in xrange(0, WIDTH + 1, size):
         hue += 1
         hue %= 360
     update()
+
+pause()

@@ -22,3 +22,5 @@ circle(BLACK, (WIDTH - WIDTH/3, HEIGHT - HEIGHT*3/4), HEIGHT/16)
 arc(BLACK, (CENTER, HEIGHT/2), 200, 340, 16)
 
 update()
+
+pause()

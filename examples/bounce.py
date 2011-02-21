@@ -23,3 +23,5 @@ while not (v_y == 0):
         v_y *= -0.9
     if abs(v_y) < 0.05 and (HEIGHT - h) < y < HEIGHT:
         v_y = 0
+
+pause()

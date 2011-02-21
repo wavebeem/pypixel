@@ -28,4 +28,3 @@ while True:
         theta %= 360 * 10.0
 
     update()
-    # clear()

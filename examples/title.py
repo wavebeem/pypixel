@@ -7,3 +7,4 @@ show()
 
 circle(RED, CENTER, HEIGHT/2)
 update()
+pause()

@@ -25,3 +25,5 @@ while not (y > HEIGHT):
 
     line(BLACK, (0, HEIGHT), (int_x, int_y), 10)
     circle(BLACK, (int_x, int_y), 20)
+
+#pause()

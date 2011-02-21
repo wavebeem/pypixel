@@ -11,3 +11,4 @@ line(WHITE, (0, HEIGHT-1), (WIDTH-1, HEIGHT-1))
 line(WHITE, (WIDTH-1, HEIGHT-1), (WIDTH-1, 0))
 
 update()
+pause()

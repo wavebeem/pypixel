@@ -16,3 +16,5 @@ for x in reversed(xrange(0, WIDTH + 1, width)):
     update()
     hue += 1
     hue %= 360
+
+pause()
