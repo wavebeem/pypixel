@@ -149,6 +149,10 @@ def _end():
     if _video_is_on and not _explicit_exit:
         _pause()
 
+    import threading
+    for thread in threading.enumerate():
+        thread.join()
+
 ### END PRIVATES
 
 def show():
