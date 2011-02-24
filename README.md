@@ -1,12 +1,14 @@
-Usage  
+*For mor information on pypixel, go to [the pypixel wiki](https://github.com/saikobee/pypixel/wiki)*
+
+# Usage  
 
 This page describes how to use pypixel in your code.
 
-Installation
+# Installation
 
 As of writing, the whole pypixel library is one single Python file: pypixel.py. There is also an examples directory with example code written with pypixel that you can run. Users can simply copy pypixel.py to the directory with their code in it and start using it.
 
-Documentation
+# Documentation
 
 From inside the Python interactive interpreter:
 
