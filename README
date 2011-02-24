@@ -16,6 +16,7 @@ From inside the Python interactive interpreter:
 or simply type
 
     pydoc pypixel
-    from the command line.
+
+from the command line.
 
 This will use the built-in doc-strings in pypixel to let your browse the class documentation.
