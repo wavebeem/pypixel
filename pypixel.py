@@ -8,7 +8,7 @@ It is a collection of verbosely named functions that achieve basic geometric sha
 # - Wrap Python functions so we can have standard documentation style?
 
 __author__  = "Brian Mock <mock.brian@gmail.com>"
-__version__ = "1.0"
+__version__ = "0.1"
 
 from math import log, sqrt, radians, degrees, pi, e
 
