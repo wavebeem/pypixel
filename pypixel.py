@@ -26,7 +26,7 @@ _paused        = False
 _show_fps      = False
 _video_is_on   = False
 
-_TITLE = "PyPixel " + __version__
+_TITLE = "pypixel " + __version__
 _program = None
 
 _FPS = 60
