@@ -1,6 +1,10 @@
 # Welcome to pypixel!
 **For more information on pypixel, go to [the pypixel wiki](https://github.com/saikobee/pypixel/wiki)**
 
+## Author
+
+[Brian Mock](http://willamette.edu/~bmock) <mock.brian@gmail.com>
+
 ## Usage  
 
 This page describes how to use pypixel in your code.
