@@ -11,9 +11,6 @@ technology education conference.**
 
 [Brian Mock](http://willamette.edu/~bmock) <mock.brian@gmail.com>
 
-## Why?
-Brian Mock 
-
 ## Usage  
 
 This page describes how to use pypixel in your code.
