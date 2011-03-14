@@ -11,10 +11,6 @@ technology education conference.**
 
 [Brian Mock](http://willamette.edu/~bmock) <mock.brian@gmail.com>
 
-## Usage  
-
-This page describes how to use pypixel in your code.
-
 ## Installation
 
 As of writing, the whole pypixel library is one single Python file: `pypixel.py`. There is also an examples directory with example code written with pypixel that you can run. Users can simply copy `pypixel.py` to the directory with their code in it and start using it.
