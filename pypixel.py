@@ -98,6 +98,16 @@ _keybinds = {
     pygame.locals.K_ESCAPE: exit,
 }
 
+def bind(key, func):
+    '''\
+    Binds the key to the function. The key is simply the character
+    string of its representation, like 'k' for the K key, 'q' for the Q key
+    and so on.
+    '''
+
+    global _keybinds
+    _keybinds[ord(key)] = func
+
 # This should really be expressable with a lambda, python...
 def _noop():
     pass
