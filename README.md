@@ -1,3 +1,5 @@
+# NO LONGER IN DEVELOPMENT
+
 # Welcome to pypixel!
 
 **For more information on pypixel, go to
